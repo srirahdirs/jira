@@ -1,0 +1,16 @@
+.footer-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa; 
+    color:#333;           /* White text */
+    text-align: center;
+    padding: 1rem;        /* Some padding for better spacing */
+    font-size: 14px;
+    z-index: 1000;          /* Ensures it stays on top */
+}
+
+.footer-content {
+    margin: 0;
+}
+

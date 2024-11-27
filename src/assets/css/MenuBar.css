@@ -1,0 +1,36 @@
+/* Styling the Menubar to match the clean and minimalistic look */
+.ui-menubar {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.ui-menubar .ui-menubar-root-list > li > a {
+    color: #495057;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.ui-menubar .ui-menubar-root-list > li > a .pi {
+    margin-right: 8px;
+}
+
+.ui-menubar .ui-menubar-root-list > li > a:hover {
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.ui-menubar .ui-menubar-root-list > li.ui-menuitem-active > a {
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.ui-menubar .ui-menubar-root-list > li > ul {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.ui-menubar .ui-menubar-root-list > li > ul > li > a {
+    color: #495057;
+}

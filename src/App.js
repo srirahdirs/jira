@@ -1,16 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import './assets/css/App.css';
+import 'primereact/resources/themes/lara-light-blue/theme.css'; // Or choose another theme
+import 'primereact/resources/primereact.min.css'; // Core CSS of PrimeReact
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
+
+import Header from './pages/layouts/Header';
+import Content from './pages/Content';
+import Footer from './pages/layouts/Footer';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 
 function App() {
-  const name = 'YZT';
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />       
-        <p>Welcome to Jira! alias Track! </p>
-      <i>created  </i>By<b>{name}</b>
-      </header>
-      
+      <Router>
+        {/* Conditionally render Header based on route */}
+        <Routes>
+          <Route path="/login" element={<Login />} /> {/* Login page doesn't render Header */}
+          <Route path="/" element={<><Header /><Home /><Footer /></>} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

@@ -1,0 +1,10 @@
+.header_search_box{
+    margin-right: 15px;
+}
+.p-inputtext.p-inputtext-lg {
+    font-size: 1rem;
+    padding: 0.9375rem 0.9375rem;
+}
+.p-icon-field-right > .p-inputtext {
+    padding-right: 3.7rem;
+}
