@@ -1,29 +1,32 @@
-import './assets/css/App.css';
-import 'primereact/resources/themes/lara-light-blue/theme.css'; // Or choose another theme
-import 'primereact/resources/primereact.min.css'; // Core CSS of PrimeReact
-import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
-
-import Header from './pages/layouts/Header';
-import Content from './pages/Content';
-import Footer from './pages/layouts/Footer';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Logout from './pages/Logout';
+import Register from './pages/Register';
 import NotFound from './pages/NotFound';
+import Footer from './pages/layouts/Footer';
+import { AuthProvider } from './context/AuthContext';  // Correct import for AuthProvider
+import MainMenu from "./pages/layouts/menus/MainMenu";
 
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <Router>
-        {/* Conditionally render Header based on route */}
-        <Routes>
-          <Route path="/login" element={<Login />} /> {/* Login page doesn't render Header */}
-          <Route path="/" element={<><Header /><Home /><Footer /></>} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {/* Wrap your app layout */}
+        <MainMenu /> {/* Moved outside of Routes for consistency across all pages */}
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<><Home /><Footer /></>} />
+            <Route path="/home" element={<><Home /><Footer /></>} />
+            <Route path="/login" element={<><Login /><Footer /></>} />
+            <Route path="/register" element={<><Register /><Footer /></>} />
+            <Route path="/logout" element={<><Logout /><Footer /></>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </Router>
-    </div>
+    </AuthProvider>
   );
 }
 

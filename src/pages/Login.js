@@ -1,97 +1,162 @@
-import React, { useState } from 'react';
-import { InputText } from 'primereact/inputtext';
-import { Password } from 'primereact/password';
-import { Button } from 'primereact/button';
+import React, { useState, useEffect } from 'react';
+import { Toast } from 'primereact/toast';
+import { useToast } from '../assets/utils/toastUtil';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';  // Import the correct AuthContext
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+  const { toast, showToast } = useToast();
+  const navigate = useNavigate();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        console.log('Username:', username);
-        console.log('Password:', password);
-    };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-    return (
-        <div className="surface-ground flex align-items-center justify-content-center min-h-screen">
-            <div
-                className="shadow-2 surface-card p-5 border-round w-full lg:w-4"
-                style={{ maxWidth: '400px' }}
-            >
-                <div className="text-center mb-5">
-                    <img
-                        src="https://primefaces.org/cdn/primereact/images/logo.png"
-                        alt="Apollo Logo"
-                        className="w-6"
-                    />
-                    <h3 className="text-900 text-3xl font-medium mt-3">Welcome Back</h3>
-                    <p className="text-600">Sign in to continue</p>
+  const { setUser, isLoggedIn, setIsLoggedIn } = useAuth();
+
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
+    }
+  }, [isLoggedIn, navigate]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const apiUrl = 'http://localhost:3000/api/login';  // Update API URL
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        showToast(errorData.message || 'Login failed', 'error');
+        return;
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        localStorage.setItem('authToken', data.token);
+        setIsLoggedIn(true);  // Update login status
+        setUser({
+          user_id: data.user.id,
+          email: data.user.email,
+          name: data.user.name,
+        });
+        showToast('Login successful');
+      } else {
+        showToast(data.message || 'Invalid credentials', 'error');
+      }
+    } catch (error) {
+      showToast('Something went wrong, please try again.');
+    }
+  };
+
+  const validateEmail = (value) => {
+    setEmail(value);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      setEmailError('Invalid email format');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const validatePassword = (value) => {
+    setPassword(value);
+    if (value.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  return (
+    <>
+      <Toast ref={toast} />
+      <section>
+        <div className="login">
+          <div className="container">
+            <div className="row">
+              <div className="inn">
+                <div className="lhs">
+                  <div className="tit">
+                    <h2>Now <b>Find <br /> your life partner</b> Easy and fast.</h2>
+                  </div>
+                  <div className="im">
+                    <img src="images/login-couple.png" alt="" />
+                  </div>
+                  <div className="log-bg">&nbsp;</div>
                 </div>
+                <div className="rhs">
+                  <div>
+                    <div className="form-tit">
+                      <h4>Get Started for Free</h4>
+                      <h1>Signin <em className="em_register">Wedding Soul Mates</em> Matrimony</h1>
+                      <p>Not a member yet? <a href="/register">Create an account now</a></p>
 
-                <form onSubmit={handleLogin}>
-                    <div className="field mb-4">
-                        <label htmlFor="username" className="block text-900 font-medium mb-2">
-                            Username
-                        </label>
-                        <InputText
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Enter your username"
-                            className="w-full"
-                        />
                     </div>
-
-                    <div className="field mb-4">
-                        <label htmlFor="password" className="block text-900 font-medium mb-2">
-                            Password
-                        </label>
-                        <Password
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            feedback={false}
-                            placeholder="Enter your password"
-                            toggleMask
-                            className="w-full"
-                        />
-                    </div>
-
-                    <div className="flex align-items-center justify-content-between mb-4">
-                        <div className="field-checkbox">
-                            <input
-                                type="checkbox"
-                                id="rememberme"
-                                className="mr-2"
-                                style={{ cursor: 'pointer' }}
-                            />
-                            <label htmlFor="rememberme" className="text-600">
-                                Remember me
-                            </label>
+                    <div className="form-login">
+                      <form onSubmit={handleLogin}>
+                        <div className="form-group">
+                          <label className="lb">Email:</label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            value={email}
+                            onChange={(e) => validateEmail(e.target.value)}
+                            placeholder="Enter email"
+                            name="email"
+                            required
+                          />
                         </div>
-                        <a href="#" className="font-medium text-blue-500 text-sm">
-                            Forgot password?
-                        </a>
+                        {emailError && <p className="error-message">{emailError}</p>}
+
+                        <div className="form-group">
+                          <label className="lb">Password:</label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            id="pwd"
+                            placeholder="Enter password"
+                            name="pswd"
+                            required
+                            value={password}
+                            onChange={(e) => validatePassword(e.target.value)}
+                          />
+                        </div>
+                        {passwordError && <p className="error-message">{passwordError}</p>}
+                        <div className="form-group form-check">
+                          <label className="form-check-label">
+                            <input className="form-check-input" type="checkbox" name="agree" /> Remember me
+                          </label>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Sign in</button>
+                      </form>
                     </div>
-
-                    <Button
-                        label="Sign In"
-                        type="submit"
-                        className="p-button w-full p-3 text-white"
-                        style={{ background: 'var(--primary-color)' }}
-                    />
-                </form>
-
-                <div className="text-center mt-5">
-                    <span className="text-600 font-medium">Don't have an account?</span>{' '}
-                    <a href="#" className="font-medium text-blue-500">
-                        Sign up now
-                    </a>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </section>
+    </>
+  );
 };
 
 export default Login;

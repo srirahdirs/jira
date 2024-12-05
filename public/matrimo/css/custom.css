@@ -1,0 +1,48 @@
+.error-message {
+    color: red;
+    margin: 1px;
+}
+
+.p-toast-detail {
+    margin-top: 0px !important;
+    margin-left: 10px !important;
+}
+
+.p-toast-message-content img,
+svg {
+    margin-top: 3px;
+}
+
+.p-toast-message-success {
+    background: #00ff7d !important
+}
+
+.p-toast-message-error {
+    background: #e91b06e3 !important;
+    color: #fff;
+}
+
+.p-toast {
+    top: 56px !important;
+    right: -92px !important;
+}
+
+.hom-top {
+    position: relative !important;
+}
+
+em {
+    color: #e5026b;
+    font-weight: 700;
+    font-family: 'Cinzel Decorative', cursive;
+
+}
+
+.em_register {
+    color: #e5026b;
+    font-weight: 700;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: smaller;
+}
+
+/* slider css */

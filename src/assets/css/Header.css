@@ -6,5 +6,16 @@
     padding: 0.9375rem 0.9375rem;
 }
 .p-icon-field-right > .p-inputtext {
-    padding-right: 3.7rem;
+    padding-right:6rem;
+}
+
+.custom-avatar-menu {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-avatar-menu .p-button-text {
+    padding: 8px;
+    width: 100%;
+    text-align: left;
 }
