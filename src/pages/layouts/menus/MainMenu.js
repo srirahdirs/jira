@@ -5,6 +5,18 @@ import RightMenu from './RightMenu';
 import { useAuth } from '../../../context/AuthContext';
 const MainMenu = () => {
     const { isLoggedIn, user } = useAuth();
+    const handleClick = () => {
+        console.log('clicked');
+        const popBgElement = document.querySelector('.pop-bg');
+        if (popBgElement) {
+            popBgElement.classList.add('act');
+        }
+        const menu_pop2 = document.querySelector('.menu-pop2');
+        if (menu_pop2) {
+            menu_pop2.classList.add('act');
+        }
+    };
+
     return (
         <>
             <TopMenu />
@@ -27,13 +39,23 @@ const MainMenu = () => {
                             {/* EXPLORE MENU */}
 
                             <div className="bl">
-                                {isLoggedIn ? '' : (
-                                    <ul>
-                                        <li><a href="/login">Login</a></li>
-                                        <li><a href="/register">Register</a></li>
-                                    </ul>
-                                )
-                                }
+                                <ul>
+                                    {isLoggedIn ? (
+                                        <>
+                                            <li><a href="/matches">Matches</a></li>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <li><a href="/login">Login</a></li>
+                                            <li><a href="/register">Register</a></li>
+
+                                        </>
+                                    )
+                                    }
+                                    <li><a href="/pricing">Pricing</a></li>
+                                    <li><a href="/about">About Us</a></li>
+                                    <li><a href="/contact">Contact Us</a></li>
+                                </ul>
                             </div>
 
 
@@ -41,14 +63,17 @@ const MainMenu = () => {
                             {isLoggedIn ? (
                                 <div className="al">
                                     <div className="head-pro">
-                                        {user.image ? (
-                                            <img src={`${process.env.PUBLIC_URL}/matrimo/images/profiles/1.jpg`} alt="" loading="lazy" />
-                                        ) : (<img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />)
-                                        }
+                                        {isLoggedIn && user.image ? (
+                                            <>
+                                                <img src={`${process.env.PUBLIC_URL}/matrimo/images/profiles/1.jpg`} alt="" loading="lazy" />
 
+                                            </>
+                                        ) : (
+                                            <img src={`${process.env.PUBLIC_URL}/matrimo/images/user_dummy.png`} alt="" loading="lazy" />
+                                        )}
                                         <b>My Profile</b><br />
-                                        <h4>{user.name}</h4>
-                                        <span className="fclick"></span>
+                                        <h4>{user?.name}</h4>  {/* Use optional chaining to avoid errors */}
+                                        <span onClick={handleClick} className="fclick"></span>
                                     </div>
                                 </div>
                             ) : ''}

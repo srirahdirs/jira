@@ -45,4 +45,66 @@ em {
     font-size: smaller;
 }
 
+.city_dropdown input {
+    height: 26px !important;
+}
+
 /* slider css */
+/* Specific to the Date of Birth container */
+.dob-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Specific to the Date of Birth label */
+.dob-container .lb {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Specific to the Calendar inside the Date of Birth form group */
+.dob-container .dob-calendar {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    /* Aligns to the left */
+}
+
+
+
+/* Adjust the input field within the Calendar */
+.dob-container .p-inputtext {
+    padding: 8px;
+    /* Padding for the input field */
+    width: 100%;
+    border-radius: 4px;
+    /* Smooth rounded corners */
+    box-shadow: none;
+    /* Remove extra shadow if unnecessary */
+}
+
+/* Ensure it's responsive on smaller screens */
+@media (max-width: 768px) {
+    .dob-container .p-calendar {
+        max-width: 100%;
+    }
+}
+
+.p-datepicker:not(.p-datepicker-inline) {
+    background: #ffffff;
+    border: 0 none;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.p-datepicker {
+    padding: 0.5rem;
+    background: #ffffff;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.plans-ban {
+    margin-top: 0;
+}

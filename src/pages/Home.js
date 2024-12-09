@@ -40,15 +40,15 @@ const Home = () => {
             <ServicesSection />
             <AboutSection />
             <section>
-                <div class="str count">
-                    <div class="container">
-                        <div class="row">
-                            <div class="fot-ban-inn">
-                                <div class="lhs">
+                <div className="str count">
+                    <div className="container">
+                        <div className="row">
+                            <div className="fot-ban-inn">
+                                <div className="lhs">
                                     <h2>Find your perfect Match now</h2>
                                     <p>Discover your ideal partner today. Experience true connection and lasting love. <b>Wedding Soul Mates</b> helps you find the perfect match with ease.</p>
-                                    <a href="/register" class="cta-3">Register Now</a>
-                                    <a href="/login" class="cta-4">Help & Support</a>
+                                    <a href="/register" className="cta-3">Register Now</a>
+                                    <a href="/login" className="cta-4">Help & Support</a>
                                 </div>
                             </div>
                         </div>

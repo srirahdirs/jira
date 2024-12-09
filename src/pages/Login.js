@@ -27,7 +27,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const apiUrl = 'http://localhost:3000/api/login';  // Update API URL
+    const apiUrl = 'http://localhost:4000/api/login';  // Update API URL
 
     try {
       const response = await fetch(apiUrl, {
@@ -51,11 +51,7 @@ const Login = () => {
       if (data.success) {
         localStorage.setItem('authToken', data.token);
         setIsLoggedIn(true);  // Update login status
-        setUser({
-          user_id: data.user.id,
-          email: data.user.email,
-          name: data.user.name,
-        });
+        setUser(data.user);
         showToast('Login successful');
       } else {
         showToast(data.message || 'Invalid credentials', 'error');

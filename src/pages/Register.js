@@ -3,11 +3,13 @@ import { useToast } from '../assets/utils/toastUtil';
 import { useNavigate, Link } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import { useAuth } from '../context/AuthContext';
+
+
 const Registration = () => {
     const { toast, showToast } = useToast();
     const navigate = useNavigate();
 
-    const { setUser, isLoggedIn, setIsLoggedIn } = useAuth();
+    const { setUser, setIsLoggedIn } = useAuth();
 
     // Form states
     const [name, setName] = useState('');
@@ -91,7 +93,7 @@ const Registration = () => {
             return;
         }
 
-        const apiUrl = 'http://localhost:3000/api/register';  // Adjust API URL
+        const apiUrl = 'http://localhost:4000/api/register';  // Adjust API URL
 
         try {
             const response = await fetch(apiUrl, {
@@ -154,7 +156,7 @@ const Registration = () => {
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        placeholder="Enter your full name"
+                                                        placeholder="Applicant full name"
                                                         name="name"
                                                         id="name"
                                                         value={name}

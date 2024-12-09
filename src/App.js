@@ -4,7 +4,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Register from './pages/Register';
-import NotFound from './pages/NotFound';
+import Pricing from './pages/Pricing';
+import UpdateUserProfile from './pages/User/UpdateUserProfile';
+import ComingSoon from './pages/ComingSoon';
 import Footer from './pages/layouts/Footer';
 import { AuthProvider } from './context/AuthContext';  // Correct import for AuthProvider
 import MainMenu from "./pages/layouts/menus/MainMenu";
@@ -21,8 +23,11 @@ function App() {
             <Route path="/home" element={<><Home /><Footer /></>} />
             <Route path="/login" element={<><Login /><Footer /></>} />
             <Route path="/register" element={<><Register /><Footer /></>} />
+            <Route path="/pricing" element={<><Pricing /><Footer /></>} />
             <Route path="/logout" element={<><Logout /><Footer /></>} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/profile" element={<><UpdateUserProfile /><Footer /></>} />
+            <Route path="*" element={<ComingSoon />} />
+            <Route path="/comingsoon" element={<ComingSoon />} />
           </Routes>
         </div>
       </Router>
